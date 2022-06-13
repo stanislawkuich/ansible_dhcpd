@@ -13,6 +13,7 @@ Role Variables
 --------------
 
 **Global configuration**
+
 - domain_name_servers
 - default_lease_time
 - max_lease_time
@@ -23,11 +24,13 @@ Role Variables
 - routers
 
 **Define hosts with static ip addresses**
+
+```
 hosts_with_staticIP:
   name: <Name of machine>
   mac: 'xx:xx:xx:xx:xx:xx'
   ip: '192.168.x.x'
-
+```
 
 Example Playbook
 ----------------
@@ -40,9 +43,3 @@ Example Playbook
     - dhcpd
 
 ```
-
-License
--------
-
-MIT
-
