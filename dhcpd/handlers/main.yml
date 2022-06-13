@@ -1,0 +1,6 @@
+---
+# handlers file for ansible_dhcpd
+- name: restart dhcpd service
+  systemd:
+    name: dhcpd
+    state: restarted

@@ -1,0 +1,23 @@
+---
+# tasks file for ansible_dhcpd
+- name: Install dhcpd package
+  yum:
+    name: dhcp
+    state: present
+
+- name: Provision dhcpd global configuration
+  template:
+    src: templates/dhcpd.conf.j2
+    dest: /etc/dhcp/dhcpd.conf
+    mode: 0644
+    owner: root
+    group: root
+  notify: 'restart dhcpd service'
+
+- name: Enable and start services
+  systemd:
+    name: '{{ item }}'
+    state: started
+    enabled: yes
+  with_items: 
+    - dhcpd
