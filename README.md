@@ -9,9 +9,8 @@ Requirements
 1. Vagrant
 2. libvirt
 
-Role Variables
+Role Variables - dhcpd/vars/main.yml
 --------------
-
 **Global configuration**
 
 - domain_name_servers
@@ -26,7 +25,6 @@ Role Variables
 **Define hosts with static ip addresses**
 
 ```
-hosts_with_staticIP:
   name: <Name of machine>
   mac: 'xx:xx:xx:xx:xx:xx'
   ip: '192.168.x.x'

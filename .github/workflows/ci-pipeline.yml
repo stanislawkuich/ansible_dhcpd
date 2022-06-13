@@ -16,4 +16,4 @@ jobs:
     - name: Check ansible version
       run: ansible --version  
     - name: Lint test
-      run: ansible-playbook ../../dhcpd/tests/test.yml --syntax-check
+      run: ansible-playbook dhcpd/tests/test.yml --syntax-check
