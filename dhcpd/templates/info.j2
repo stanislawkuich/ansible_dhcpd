@@ -1,0 +1,5 @@
+Hostname = {{ ansible_hostname }}
+Interfaces = {{ ansible_interfaces | join(', ') }}
+Kernel Version = {{ ansible_kernel }} {{ ansible_kernel_version }}
+OS Distribution = {{ ansible_distribution }}
+OS Family = {{ ansible_os_family }}

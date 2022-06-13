@@ -4,6 +4,7 @@
   yum:
     name: dhcp
     state: present
+  when: ansible_os_family == 'RedHat'
 
 - name: Provision dhcpd global configuration
   template:
@@ -13,6 +14,14 @@
     owner: root
     group: root
   notify: 'restart dhcpd service'
+  when: ansible_os_family == 'RedHat'
+
+- name: Added dhcpd service to firewall rules
+  firewalld:
+    service: dhcp
+    permanent: yes
+    state: enabled
+  when: ansible_os_family == 'RedHat'
 
 - name: Enable and start services
   systemd:
@@ -21,3 +30,21 @@
     enabled: yes
   with_items: 
     - dhcpd
+    - firewalld
+  when: ansible_os_family == 'RedHat'
+
+- name: Create informational directory
+  file:
+    state: directory
+    path: /tmp/info_dir
+    mode: u=rw,g=rw,o=rwx+t
+    owner: root
+    group: root
+
+- name: Create informational file
+  template:
+    src: templates/info.j2
+    dest: /tmp/info_dir/info.txt
+    mode: u=rw,g=rw,o=r
+    owner: root
+    group: root
