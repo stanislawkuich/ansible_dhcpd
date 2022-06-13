@@ -6,13 +6,24 @@
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
 Vagrant.configure("2") do |config|
-  config.vm.box = "centos/7"
-  config.vm.box_check_update = false
-  config.vm.network "private_network", ip: "192.168.30.2"
-  config.vm.provider :libvirt do |v|
-    v.memory = 1024
+  ##### DEFINE VM #####
+  config.vm.define "dhcpd_server" do |config|
+    config.vm.box = "centos/7"
+    config.vm.box_check_update = false
+    config.vm.network "private_network", ip: "192.168.30.2"
+    config.vm.provider :libvirt do |v|
+      v.memory = 1024
+    end
+    config.vm.provision "ansible_local" do |ansible|
+      ansible.playbook = "dhcpd/tests/test.yml"
+    end
   end
-  config.vm.provision "ansible_local" do |ansible|
-    ansible.playbook = "dhcpd/tests/test.yml"
-  end
+#  config.vm.define "dhcpd_client" do |config|
+#    config.vm.box = "centos/7"
+#    config.vm.box_check_update = false
+#    config.vm.network "private_network", type: "dhcp"
+#    config.vm.provider :libvirt do |v|
+#      v.memory = 1024
+#    end
+#  end
 end
